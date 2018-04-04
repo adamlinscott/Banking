@@ -18,6 +18,20 @@ double Account::GetBalance()
 
 
 
+double Account::GetInterest()
+{
+	return interestRate * 100;
+}
+
+
+
+long long Account::GetMinimumBalance()
+{
+	return interestLimit;
+}
+
+
+
 std::string Account::GetName()
 {
 	return name;
@@ -72,4 +86,14 @@ void Account::UpdateFile()
 	myfile << balance << std::endl;
 	myfile << GetType();
 	myfile.close();
+}
+
+
+
+void Account::ApplyInterest()
+{
+	if (balance >= interestLimit) {
+		balance = balance + (balance*interestRate);
+		UpdateFile();
+	}
 }

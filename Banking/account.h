@@ -4,12 +4,13 @@
 #include <iostream>
 #include <fstream>
 
-enum type { current = 50, saving = 80 };
+enum type { cInterest = 50, sInterest = 80, cLimit = 200, sLimit = 1000 };
 
 class Account
 {
 private:
 	long long balance;
+	long long interestLimit;
 	std::string name;
 	std::string type;
 	int id;
@@ -43,9 +44,15 @@ public:
 		myReadFile.close();
 
 		if (type == "current")
-			interestRate = current / 10000;
+		{
+			interestRate = (double)cInterest / 10000;
+			interestLimit = cLimit;
+		}
 		else if (type == "saving")
-			interestRate = saving / 10000;
+		{
+			interestRate = (double)sInterest / 10000;
+			interestLimit = sLimit;
+		}
 	}
 
 	Account(std::string userName, std::string accType) : name(userName), balance(0), type(accType)
@@ -55,9 +62,7 @@ public:
 		myReadFile.open("settings.txt");
 		std::string output;
 		if (myReadFile.is_open()) {
-			while (!myReadFile.eof()) {
-				myReadFile >> output;
-			}
+			myReadFile >> output;
 			lastID = atoi(output.c_str());
 			lastID = lastID + 1;
 			id = lastID;
@@ -75,19 +80,28 @@ public:
 		}
 		myReadFile.close();
 
-		if(accType == "current")
-			interestRate = current / 10000;
-		else if(accType == "saving")
-			interestRate = saving / 10000;
+		if (accType == "current")
+		{
+			interestRate = (double)cInterest / 10000;
+			interestLimit = cLimit;
+		}
+		else if (accType == "saving")
+		{
+			interestRate = (double)sInterest / 10000;
+			interestLimit = sLimit;
+		}
 	}
 	~Account();
 
 	double GetBalance();
+	double GetInterest();
+	long long GetMinimumBalance();
 	std::string GetName();
 	std::string GetType();
 	int GetID();
 	void Deposit(unsigned long long amount);
 	int Withdraw(unsigned long long amount);
 	void UpdateFile();
+	void ApplyInterest();
 };
 
