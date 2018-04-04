@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Account.h"
 #include <string>
+#include <iostream>
+#include <fstream>
 
 
 Account::~Account()

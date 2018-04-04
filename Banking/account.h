@@ -1,9 +1,10 @@
 
 #pragma once
 #include <string>
+#include <iostream>
+#include <fstream>
 
 enum type { current = 50, saving = 80 };
-static int lastID = -1;
 
 class Account
 {
@@ -19,14 +20,37 @@ public:
 		//build from save file
 	}
 
-	Account(std::string userName, std::string accType) : name(userName), balance(0), id(lastID + 1), type(accType)
+	Account(std::string userName, std::string accType) : name(userName), balance(0), type(accType)
 	{
+		int lastID;
+		std::ifstream myReadFile;
+		myReadFile.open("settings.txt");
+		std::string output;
+		if (myReadFile.is_open()) {
+			while (!myReadFile.eof()) {
+				myReadFile >> output;
+			}
+			lastID = atoi(output.c_str());
+			lastID = lastID + 1;
+			id = lastID;
+
+			std::ofstream myfile("settings.txt");
+			myfile << lastID;
+			myfile.close();
+		}
+		else
+		{
+			id = 0;
+			std::ofstream myfile("settings.txt");
+			myfile << 0;
+			myfile.close();
+		}
+		myReadFile.close();
+
 		if(accType == "current")
 			interestRate = current / 10000;
 		else if(accType == "saving")
 			interestRate = saving / 10000;
-
-		lastID = lastID + 1;
 	}
 	~Account();
 
