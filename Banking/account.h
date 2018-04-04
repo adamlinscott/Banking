@@ -68,9 +68,9 @@ public:
 		}
 		else
 		{
-			id = 0;
+			id = 1;
 			std::ofstream myfile("settings.txt");
-			myfile << 0;
+			myfile << 1;
 			myfile.close();
 		}
 		myReadFile.close();
@@ -87,7 +87,7 @@ public:
 	std::string GetType();
 	int GetID();
 	void Deposit(unsigned long long amount);
-	void Withdraw(unsigned long long amount);
+	int Withdraw(unsigned long long amount);
 	void UpdateFile();
 };
 

@@ -47,11 +47,18 @@ void Account::Deposit(unsigned long long amount)
 
 
 
-void Account::Withdraw(unsigned long long amount)
+int Account::Withdraw(unsigned long long amount)
 {
 	if (amount <= balance)
+	{
 		balance -= amount;
-	UpdateFile();
+		UpdateFile();
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
 }
 
 
