@@ -38,7 +38,7 @@ public:
 		}
 		else
 		{
-			std::cout << "fatal: Account does not exist";
+			std::cout << "fatal: Account" << accountID << "does not exist";
 		}
 		myReadFile.close();
 
