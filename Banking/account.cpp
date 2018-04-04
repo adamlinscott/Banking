@@ -42,6 +42,7 @@ int Account::GetID()
 void Account::Deposit(unsigned long long amount)
 {
 	balance += amount;
+	UpdateFile();
 }
 
 
@@ -50,4 +51,18 @@ void Account::Withdraw(unsigned long long amount)
 {
 	if (amount <= balance)
 		balance -= amount;
+	UpdateFile();
+}
+
+
+
+void Account::UpdateFile()
+{
+	std::string fileName = std::to_string(GetID()) + ".txt";
+	std::ofstream myfile(fileName);
+	myfile << GetID() << std::endl;
+	myfile << GetName() << std::endl;
+	myfile << balance << std::endl;
+	myfile << GetType();
+	myfile.close();
 }
