@@ -1,28 +1,50 @@
 #include "stdafx.h"
-#include "account.h"
+#include "Account.h"
 #include <string>
 
 
-account::~account()
+Account::~Account()
 {
 }
 
 
 
-long long account::GetBalance()
+double Account::GetBalance()
 {
-	return balance;
+	return (double)balance/100;
 }
 
 
-void account::Deposit(unsigned long long amount)
+
+std::string Account::GetName()
+{
+	return name;
+}
+
+
+
+std::string Account::GetType()
+{
+	return type;
+}
+
+
+
+int Account::GetID()
+{
+	return id;
+}
+
+
+
+void Account::Deposit(unsigned long long amount)
 {
 	balance += amount;
 }
 
 
 
-void account::Withdraw(unsigned long long amount)
+void Account::Withdraw(unsigned long long amount)
 {
 	if (amount <= balance)
 		balance -= amount;
